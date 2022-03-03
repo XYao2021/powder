@@ -73,9 +73,14 @@ while True:
         if len(W) == n:
             com = computing(W)
             print('this is computing result: ', com, '\n')
+            message_back = pickle.dumps(com)
             # print(clients)
             for client in clients:
-                send_back(com)
+                back_length = len(message_back)
+                back_length = str(back_length).encode(FORMAT)
+                back_length += b' ' * (HEADER - len(back_length))
+                client.send(back_length)
+                client.send(message_back)
             # print(W, len(W))
             W.clear()
             clients.clear()
