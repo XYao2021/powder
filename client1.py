@@ -9,7 +9,7 @@ PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 # SERVER = "10.17.198.243"
-SERVER = "192.168.0.6"
+SERVER = "10.17.198.243"
 ADDR = (SERVER, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -24,7 +24,7 @@ x_u_train = []
 y_u_train = []
 
 for i in range(0, len(y_train)):
-    if 0 <= y_train[i] <= 4:
+    if y_train[i] >= 5:
         x_u_train.append(x_train[i])
         y_u_train.append(y_train[i])
 
