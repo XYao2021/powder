@@ -47,16 +47,16 @@ print(len(weights), len(weights[0]), len(weights[1]))
 
 def send(msg):
     message = pickle.dumps(msg)
-    message = bytes(f"{len(msg):<{HEADER}}", FORMAT) + message
-    client.send(message)
+    # message = bytes(f"{len(msg):<{HEADER}}", FORMAT) + message
+    # client.send(message)
 
-    # msg_length = len(message)
-    # send_length = str(msg_length).encode(FORMAT)
-    # send_length += b' ' * (HEADER - len(send_length))
+    msg_length = len(message)
+    send_length = str(msg_length).encode(FORMAT)
+    send_length += b' ' * (HEADER - len(send_length))
     # print((HEADER - len(send_length)))
     # print('this is encode send_length: ', send_length)
-    # client.send(send_length)
-    # client.send(message)
+    client.send(send_length)
+    client.send(message)
     # print(client.recv(2048).decode(FORMAT))
 
 
