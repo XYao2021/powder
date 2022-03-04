@@ -3,10 +3,11 @@ import pickle
 import numpy as np
 import sys
 
-HEADER = 64  # Bytes
+HEADER = 10  # Bytes
 PORT = 5050
 # SERVER = "10.17.198.243"
 SERVER = socket.gethostbyname(socket.gethostname())
+# SERVER = "172.16.0.2"
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECTED"
@@ -29,24 +30,24 @@ def computing(weights):
     print(new, type(new[0][0]), type(new[0][0][0]))
     return new
 
-# def computing(data):
-#     r = []
-#     for i in range(0, len(data[0])):
-#         result = 0
-#         for j in range(0, len(data)):
-#             result = result + data[j][i]
-#         # r[i] = result/3
-#         r.append(result/len(data))
-#     return r
+def recv_all(sock):
+    BUFF_SIZE = 4096  # 4 KiB
+    data = b''
+    while True:
+        part = sock.recv(BUFF_SIZE)
+        data += part
+        if len(part) < BUFF_SIZE:
+            # either 0 or end of data
+            break
+    return data
 
-
-def send_back(data):
+def send_back(c, data):
     data_back = pickle.dumps(data)
     back_length = len(data_back)
     back_length = str(back_length).encode(FORMAT)
     back_length += b' ' * (HEADER - len(back_length))
-    client.send(back_length)
-    client.send(message)
+    c.send(back_length)
+    c.send(data_back)
 
 
 clients = []
@@ -57,34 +58,68 @@ print("[STARTING] server is starting...")
 print(f"[LISTENING] Server is listening on {SERVER}")
 
 while True:
-    # now our endpoint knows about the OTHER endpoint.
     clientsocket, address = server.accept()
-    print(f"[NEW CONNECTION] {address} is connected.")
+    clients.append(clientsocket)
 
     msg_length = clientsocket.recv(HEADER).decode(FORMAT)
+    msg_length = int(msg_length)
     if msg_length:
-        msg_length = int(msg_length)
-        message = clientsocket.recv(msg_length)
-        msg = pickle.loads(message)
-        clients.append(clientsocket)
-        W.append(msg)
-        clientsocket.send("Msg received".encode(FORMAT))
-        print(f"{address} {msg}")
-        if len(W) == n:
-            com = computing(W)
-            print('this is computing result: ', com, '\n')
-            message_back = pickle.dumps(com)
-            # print(clients)
-            for client in clients:
-                back_length = len(message_back)
-                back_length = str(back_length).encode(FORMAT)
-                back_length += b' ' * (HEADER - len(back_length))
-                client.send(back_length)
-                client.send(message_back)
-            # print(W, len(W))
-            W.clear()
-            clients.clear()
-        else:
-            pass
+        msg = recv_all(clientsocket)
+        weights_recv = pickle.loads(msg[len(msg) - msg_length:])
+        W.appends(weights_recv)
+        print('present data: ', clients, len(W), msg_length)
+    # while msg_length:
+    #     full_msg = b''
+    #     new_msg = True
+    #     while True:
+    #         msg = clientsocket.recv(msg_length)
+    #         if new_msg:
+    #             # print("new msg len:", msg[:HEADER])
+    #             msg_len = int(msg[:HEADER])
+    #             new_msg = False
+    #
+    #         # print(f"full message length: {msg_len}")
+    #         full_msg += msg
+    #         # print(len(full_msg))
+    #
+    #         if len(full_msg) - HEADER == msg_length:
+    #             print("full msg recvd")
+    #             # print(full_msg[HEADER:])
+    #             message_recv = pickle.loads(full_msg[HEADER:])
+    #             # print(pickle.loads(full_msg[HEADER:]))
+    #             W.append(message_recv)
+    #             clients.append(clientsocket)
+    #             new_msg = True
+    #             full_msg = b""
+    #             print(clients, len(W))
+    #             break
+    # print(clients, len(W))
 
     # clientsocket.close()
+
+# while True:
+#     # now our endpoint knows about the OTHER endpoint.
+#     clientsocket, address = server.accept()
+#     print(f"[NEW CONNECTION] {address} is connected.")
+#
+#     msg_length = clientsocket.recv(HEADER).decode(FORMAT)
+#     msg_length = int(msg_length)
+#
+#     full_msg = b''
+#
+#     while msg_length:
+#         # print(msg_length)
+#         message = clientsocket.recv(msg_length)
+#         # print(len(message))
+#         # print('this is message: ', message)
+#         full_msg += message
+#         if len(full_msg) == msg_length:
+#             msg = pickle.loads(message)
+#             # msg = pickle.loads(message)
+#             clients.append(clientsocket)
+#             W.append(msg)
+#             clientsocket.send("Msg received".encode(FORMAT))
+#             print(f"{address} {msg}")
+
+#     # clientsocket.close()
+

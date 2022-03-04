@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 import time
 
-HEADER = 64
+HEADER = 10
 PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
@@ -42,23 +42,30 @@ model_1.compile(optimizer='adam',
 model_1.fit(x_1_train, np.array(y_u_train), epochs=6)
 
 weights = model_1.get_weights()
+print(len(weights), len(weights[0]), len(weights[1]))
 # weights = np.array([1.0111, 2.0222, 3.0333, 4.0444, 5.0555, 6.06666])
 
 def send(msg):
     message = pickle.dumps(msg)
-    msg_length = len(message)
-    send_length = str(msg_length).encode(FORMAT)
-    send_length += b' ' * (HEADER - len(send_length))
-    client.send(send_length)
+    message = bytes(f"{len(msg):<{HEADER}}", FORMAT) + message
     client.send(message)
-    print(client.recv(2048).decode(FORMAT))
+
+    # msg_length = len(message)
+    # send_length = str(msg_length).encode(FORMAT)
+    # send_length += b' ' * (HEADER - len(send_length))
+    # print((HEADER - len(send_length)))
+    # print('this is encode send_length: ', send_length)
+    # client.send(send_length)
+    # client.send(message)
+    # print(client.recv(2048).decode(FORMAT))
 
 
 send(weights)
+print(f'[COMPLETE]: {client} message send success')
 
 msg_length_back = client.recv(HEADER).decode(FORMAT)
 if msg_length_back:
     msg_length_back = int(msg_length_back)
     message_back = client.recv(msg_length_back)
     msg_back = pickle.loads(message_back)
-    print(msg_back, '\n', '[COMPLETE] transmission complete...')
+    print(msg_back, '\n', '[RECV] recv transmission complete...')
