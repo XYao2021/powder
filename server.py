@@ -82,6 +82,10 @@ while True:
             if new_msg:
                 new_msg = False
             full_msg += msg
+            if len(full_msg) - HEADER == msg_length:
+                full_msg = b''
+                new_msg = True
+                break
         print('recv complete: ', len(full_msg), msg_length)
     # while msg_length:
     #     full_msg = b''
