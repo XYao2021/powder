@@ -69,15 +69,20 @@ while True:
 
     msg_length = clientsocket.recv(HEADER).decode(FORMAT)
     msg_length = int(msg_length)
-    msg = b''
     while msg_length:
         # msg = recv_all(clientsocket, msg_length)
         # print('this is msg_recv: ', msg, len(msg))
         # weights_recv = pickle.loads(msg[len(msg) - msg_length:])
         # W.appends(weights_recv)
         # print('present data: ', clients, len(W), msg_length)
-        msg += clientsocket.recv(msg_length)
-    print('recv complete: ', len(msg), msg_length)
+        full_msg = b''
+        new_msg = True
+        while True:
+            msg = clientsocket.recv(msg_length)
+            if new_msg:
+                new_msg = False
+            full_msg += msg
+        print('recv complete: ', len(full_msg), msg_length)
     # while msg_length:
     #     full_msg = b''
     #     new_msg = True
