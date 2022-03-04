@@ -30,16 +30,23 @@ def computing(weights):
     print(new, type(new[0][0]), type(new[0][0][0]))
     return new
 
-def recv_all(sock):
-    BUFF_SIZE = 4096  # 4 KiB
-    data = b''
+def recv_all(sock, m_length):
+    full_msg = b''
+    new_msg = True
     while True:
-        part = sock.recv(BUFF_SIZE)
-        data += part
-        if len(part) < BUFF_SIZE:
-            # either 0 or end of data
+        message = sock.recv(m_length)
+        if new_msg:
+            # print("new msg len:", msg[:HEADER])
+            msg_len = int(message[:HEADER])
+            new_msg = False
+
+        # print(f"full message length: {msg_len}")
+        full_msg += msg
+        # print(len(full_msg))
+
+        if len(full_msg) - HEADER == m_length:
             break
-    return data
+    return full_msg
 
 def send_back(c, data):
     data_back = pickle.dumps(data)
@@ -64,7 +71,8 @@ while True:
     msg_length = clientsocket.recv(HEADER).decode(FORMAT)
     msg_length = int(msg_length)
     if msg_length:
-        msg = recv_all(clientsocket)
+        msg = recv_all(clientsocket, msg_length)
+        print('this is msg_recv: ', msg, len(msg))
         weights_recv = pickle.loads(msg[len(msg) - msg_length:])
         W.appends(weights_recv)
         print('present data: ', clients, len(W), msg_length)
