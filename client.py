@@ -2,7 +2,8 @@ import socket
 import pickle
 import numpy as np
 import tensorflow as tf
-import time
+from Functions import *
+
 
 HEADER = 10
 PORT = 5050
@@ -42,30 +43,20 @@ model_1.compile(optimizer='adam',
 model_1.fit(x_1_train, np.array(y_u_train), epochs=6)
 
 weights = model_1.get_weights()
-print(len(weights), len(weights[0]), len(weights[1]))
-# weights = np.array([1.0111, 2.0222, 3.0333, 4.0444, 5.0555, 6.06666])
 
-def send(msg):
-    message = pickle.dumps(msg)
-    # message = bytes(f"{len(msg):<{HEADER}}", FORMAT) + message
-    # client.send(message)
+send_msg(client, weights)
+# client.close()
+if True:
+    print(f'[WAITING] wait the message from {SERVER}...')
+    msg_back = recv_msg(client)
+    weights_recv = pickle.loads(msg_back)
+    print(weights_recv)
 
-    msg_length = len(message)
-    send_length = str(msg_length).encode(FORMAT)
-    send_length += b' ' * (HEADER - len(send_length))
-    # print((HEADER - len(send_length)))
-    # print('this is encode send_length: ', send_length)
-    client.send(send_length)
-    client.send(message)
-    # print(client.recv(2048).decode(FORMAT))
+model_1.set_weights(weights_recv)
+print('[NEW_WEIGHTS] new weights has been set...')
 
-
-send(weights)
-print(f'[COMPLETE]: {client} message send success')
-
-msg_length_back = client.recv(HEADER).decode(FORMAT)
-if msg_length_back:
-    msg_length_back = int(msg_length_back)
-    message_back = client.recv(msg_length_back)
-    msg_back = pickle.loads(message_back)
-    print(msg_back, '\n', '[RECV] recv transmission complete...')
+model_1.fit(x_1_train, np.array(y_u_train), epochs=6)
+weights1 = model_1.get_weights()
+# print(weights1)
+#
+# send_msg(client, weights1)
