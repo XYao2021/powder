@@ -57,6 +57,7 @@ while i < iter_num:
             model_1.set_weights(back_msg)
             model_1.fit(x_1_train, np.array(y_u_train), epochs=6)
             weights1 = model_1.get_weights()
+            print(i, 'new_weights: ', weights1)
             weights = weights1
             i += 1
 
