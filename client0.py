@@ -53,7 +53,7 @@ while i < iter_num:
         if True:
             back_msg = recv_msg(client)
             back_msg = pickle.loads(back_msg)
-            print(i, back_msg)
+            print(i, 'recv weights: ', back_msg)
             model_1.set_weights(back_msg)
             model_1.fit(x_1_train, np.array(y_u_train), epochs=6)
             weights1 = model_1.get_weights()
