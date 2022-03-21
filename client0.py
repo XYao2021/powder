@@ -14,7 +14,7 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect_ex(ADDR)
 client.setblocking(0)
 
-print("[TRAINING START] training start...")
+print("[TRAINING START] training start...", '\n')
 mnist = tf.keras.datasets.mnist
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -57,7 +57,7 @@ while i < iter_num:
             model_1.set_weights(back_msg)
             model_1.fit(x_1_train, np.array(y_u_train), epochs=6)
             weights1 = model_1.get_weights()
-            print(i, 'new_weights: ', weights1)
+            print(i, 'new_weights: ', weights1, '\n')
             weights = weights1
             i += 1
 
