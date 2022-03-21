@@ -23,7 +23,7 @@ x_u_train = []
 y_u_train = []
 
 for i in range(0, len(y_train)):
-    if 5 <= y_train[i]:
+    if 0 <= y_train[i]<= 4:
         x_u_train.append(x_train[i])
         y_u_train.append(y_train[i])
 
