@@ -112,7 +112,7 @@ if __name__ == '__main__':
     test_acc, test_loss = [], []
 
     for iter in range(args.epochs):
-        print(f'[START] Start {iter} iteration local update ...')
+        print('[START] Start', iter, 'iteration local update ...')
         loss_locals = []
         local = LocalUpdate(args=args, dataset=new_dataset_train, idxs=i_d)  # XY: Each Local update has 10 local iterations
         w, loss = local.train(net=copy.deepcopy(net_glob).to(args.device))
@@ -121,12 +121,12 @@ if __name__ == '__main__':
         loss_train.append(loss)  # Print the loss trend changing along with iteration times
 
         send_msg(client, ['MSG_CLIENT_TO_SERVER', w])
-        print(f'[WAITING] number {iter} iterations finished and waiting for server {SERVER} response ...', '\n')
+        print('[WAITING] number', iter, 'iterations finished and waiting for server response ...')
         time.sleep(15)
         if True:
             # back_msg = recv_msg(client)
             back_msg = recv_msg(client, 'MSG_SERVER_TO_CLIENT')
-            print(f'[RECEIVED] Received new weights from server {SERVER} and load weights then start next iteration ... ', '\n')
+            print('[RECEIVED] Received new weights from server and load weights then start next iteration ... ')
             net_glob.load_state_dict(back_msg[1])
             # XY: Test the model  Original test function cannot be running because Mac don't have GPU mode for cuda (torch.cuda.is_available() = False)
             net_glob.eval()
