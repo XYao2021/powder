@@ -21,7 +21,7 @@ clients = []
 Weights = []
 threshold = args.threshold
 
-print(f'Listening for connections on {SERVER}...')
+print('Listening for connections on: ', SERVER, '...')
 
 com_time = 0
 while True:
@@ -32,12 +32,12 @@ while True:
 
             sockets_list.append(client_socket)
             clients.append(client_socket)
-            print(f'Accepted new connection from {client_address}...')
+            print('Accepted new connection from: ', client_address, '...')
 
             msg_recv = recv_msg(client_socket)
             if msg_recv is False:
                 continue
-            print('weights_recv : ', msg_recv[1], '\n')
+            # print('weights_recv : ', msg_recv[1], '\n')
             Weights.append(msg_recv[1])
 
             if len(Weights) == threshold:
@@ -57,7 +57,7 @@ while True:
                 clients.remove(notified_socket)
                 continue
             Weights.append(msg_recv[1])
-            print(f'Message received from {notified_socket}...')
+            print('Message received from: ', notified_socket, '...')
             if len(Weights) == threshold:
                 print('[COMPUTING] start weights computing...')
                 new_weights = FedAvg(Weights)
@@ -69,7 +69,7 @@ while True:
                 com_time += 1
                 if com_time == args.epochs:
                     for user in clients:
-                        print(f'[COMMUNICATION COMPLETE] Close connection with {user.getpeername()}')
+                        print('[COMMUNICATION COMPLETE] Close connection with: ', user.getpeername())
                         user.close()
                     print('[WAIT FOR NEW CONNECTION]')
 
