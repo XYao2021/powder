@@ -135,22 +135,25 @@ if __name__ == '__main__':
             test_loss.append(loss_test)
             print(iter, '[TEST RESULT]: ', acc_test, loss_test, '\n')
 
+    print('loss_train: ', loss_train, '\n')
+    print('test_acc: ', test_acc, '\n')
+    print('test_loss: ', test_loss, '\n')
     # Plot loss curve  XY: just save the raster image without plot it
-    figure, axis = plt.subplots(1, 3)
-    # For Sine Function
-    axis[0].plot(range(len(loss_train)), loss_train)
-    axis[0].set_xlabel("Epochs")
-    axis[0].set_ylabel("Train Loss")
-    axis[0].set_title("Training Loss Function")
-
-    axis[1].plot(range(len(test_acc)), test_acc)
-    axis[1].set_xlabel("Epochs")
-    axis[1].set_ylabel("Test Accuracy")
-    axis[1].set_title("Test Accuracy Function")
-
-    axis[2].plot(range(len(test_loss)), test_loss)
-    axis[2].set_xlabel("Epochs")
-    axis[2].set_ylabel("Test Loss")
-    axis[2].set_title("Test Loss Function")
-
-    plt.show()
+    # figure, axis = plt.subplots(1, 3)
+    # # For Sine Function
+    # axis[0].plot(range(len(loss_train)), loss_train)
+    # axis[0].set_xlabel("Epochs")
+    # axis[0].set_ylabel("Train Loss")
+    # axis[0].set_title("Training Loss Function")
+    #
+    # axis[1].plot(range(len(test_acc)), test_acc)
+    # axis[1].set_xlabel("Epochs")
+    # axis[1].set_ylabel("Test Accuracy")
+    # axis[1].set_title("Test Accuracy Function")
+    #
+    # axis[2].plot(range(len(test_loss)), test_loss)
+    # axis[2].set_xlabel("Epochs")
+    # axis[2].set_ylabel("Test Loss")
+    # axis[2].set_title("Test Loss Function")
+    #
+    # plt.show()
