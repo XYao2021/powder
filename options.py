@@ -19,6 +19,7 @@ def args_parser():
     parser.add_argument('--target_set', type=list, default=[0, 1, 2, 3, 4], help="separate training set to specific set")
     parser.add_argument('--threshold', type=int, default='2', help="threshold for server, also the number of clients")
     parser.add_argument('--N', type=int, default=3, help="number of targets choose for each client")
+    parser.add_argument('--S', type=str, default="192.168.0.6", help="Server address")
 
     # model arguments
     parser.add_argument('--model', type=str, default='mlp', help='model name')
