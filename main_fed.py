@@ -23,18 +23,14 @@ from test import test_img
 # matplotlib.use('Agg')  # XY: Using Agg(for no GPU condition) mode, just save image, cannot plot it
 if __name__ == '__main__':
     # socket info
+    args = args_parser()
     PORT = 5050
-    # SERVER = "10.17.198.243"
-    # SERVER = "192.168.0.11"
-    SERVER = "192.168.0.6"
-    # SERVER = "10.17.148.245"
-    # SERVER = "127.0.0.1"
+    SERVER = args.S
     ADDR = (SERVER, PORT)
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(ADDR)
 
     # parse args
-    args = args_parser()
     args.device = torch.device('cuda:{}'.format(args.gpu) if torch.cuda.is_available() and args.gpu != -1 else 'cpu')
 
     # load dataset and split users
