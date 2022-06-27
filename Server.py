@@ -8,7 +8,7 @@ HEADER_LENGTH = 10
 PORT = 5050
 
 # SERVER = socket.gethostbyname(socket.gethostname())
-SERVER = "172.16.0.1"
+SERVER = args.S
 
 ADDR = (SERVER, PORT)
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
