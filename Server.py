@@ -52,7 +52,7 @@ while True:
         else:
             msg_recv = recv_msg(notified_socket)
             if msg_recv is False:
-                print(f'Closed connection from: {notified_socket}...')
+                print('Closed connection from: ', notified_socket, '...')
                 sockets_list.remove(notified_socket)
                 clients.remove(notified_socket)
                 continue
