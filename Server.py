@@ -6,10 +6,10 @@ from options import args_parser
 args = args_parser()
 HEADER_LENGTH = 10
 PORT = 5050
-# SERVER = "10.17.198.243"
-SERVER = socket.gethostbyname(socket.gethostname())
-# SERVER = "127.0.0.1"
-# SERVER = "172.16.0.2"
+
+# SERVER = socket.gethostbyname(socket.gethostname())
+SERVER = "172.16.0.1"
+
 ADDR = (SERVER, PORT)
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  #set reuse the address
