@@ -126,7 +126,7 @@ if __name__ == '__main__':
             net_glob.load_state_dict(back_msg[1])
             # XY: Test the model  Original test function cannot be running because Mac don't have GPU mode for cuda (torch.cuda.is_available() = False)
             net_glob.eval()
-            acc_test, loss_test = test_img(net_glob, new_dataset_test, args)
+            acc_test, loss_test = test_img(net_glob, dataset_test, args)
             test_acc.append(acc_test)
             test_loss.append(loss_test)
             print(iter, '[TEST RESULT]: ', acc_test, loss_test, '\n')
