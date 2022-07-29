@@ -43,7 +43,7 @@ while True:
             if len(Weights) == threshold:
                 print('[COMPUTING] start weights computing...')
                 new_weights = FedAvg(Weights)
-                print('[NEW WEIGHTS]: ', new_weights, '\n')
+                # print('[NEW WEIGHTS]: ', new_weights, '\n')
                 for client in clients:
                     send_msg(client, ['MSG_SERVER_TO_CLIENT', new_weights])
                 Weights.clear()
@@ -61,7 +61,7 @@ while True:
             if len(Weights) == threshold:
                 print('[COMPUTING] start weights computing...')
                 new_weights = FedAvg(Weights)
-                print('[NEW WEIGHTS]: ', new_weights, '\n')
+                # print('[NEW WEIGHTS]: ', new_weights, '\n')
                 for client in clients:
                     send_msg(client, ['MSG_SERVER_TO_CLIENT', new_weights])
                 Weights.clear()
