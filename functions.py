@@ -50,7 +50,7 @@ class MNISTModel(nn.Module):  # Improve the model V0 with nonlinear activation f
                                          nn.Linear(in_features=hidden_units, out_features=output_shape),
                                          nn.ReLU())
 
-    def forward(self, x: torch.Tensor):
+    def forward(self, x):
         return self.layer_stack(x)
 
 def eval_model(model,
@@ -98,7 +98,7 @@ def train_step(model,
     train_acc /= len(data_loader)
     w = model.state_dict()
     print(EPOCH, 'Train Loss: ', train_loss)
-    print(EPOCH, 'Train Acc: 'train_acc, '\n')
+    print(EPOCH, 'Train Acc: ', train_acc, '\n')
     return train_loss, train_acc, w
 
 def test_step(model,
