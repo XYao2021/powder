@@ -110,22 +110,22 @@ print(f'Train Loss: {Train_Loss}')
 print(f'Test Loss: {Test_Loss}')
 print(f'Test Acc: {Test_Acc}')
 
-figure, axis = plt.subplots(1, 3)
-# For Sine Function
-axis[0].plot(range(len(Train_Loss)), Train_Loss)
-axis[0].set_xlabel("Propagation")
-axis[0].set_ylabel("Train Loss")
-axis[0].set_title("Training Loss Function")
+# figure, axis = plt.subplots(1, 3)
+# # For Sine Function
+# axis[0].plot(range(len(Train_Loss)), Train_Loss)
+# axis[0].set_xlabel("Propagation")
+# axis[0].set_ylabel("Train Loss")
+# axis[0].set_title("Training Loss Function")
 
-axis[1].plot(range(len(Test_Acc)), Test_Acc)
-axis[1].set_xlabel("Propagation")
-axis[1].set_ylabel("Test Accuracy")
-axis[1].set_title("Test Accuracy Function")
+# axis[1].plot(range(len(Test_Acc)), Test_Acc)
+# axis[1].set_xlabel("Propagation")
+# axis[1].set_ylabel("Test Accuracy")
+# axis[1].set_title("Test Accuracy Function")
 
-axis[2].plot(range(len(Test_Loss)), Test_Loss)
-axis[2].set_xlabel("Propagation")
-axis[2].set_ylabel("Test Loss")
-axis[2].set_title("Test Loss Function")
+# axis[2].plot(range(len(Test_Loss)), Test_Loss)
+# axis[2].set_xlabel("Propagation")
+# axis[2].set_ylabel("Test Loss")
+# axis[2].set_title("Test Loss Function")
 
-plt.show()
+# plt.show()
 
