@@ -21,7 +21,7 @@ sockets_list = [server]
 clients = []
 Weights = []
 
-print(f'Listening for connections on {SERVER}...')
+print('Listening for connections on ', SERVER, '...')
 
 com_time = 0
 while True:
@@ -32,7 +32,7 @@ while True:
 
             sockets_list.append(client_socket)
             clients.append(client_socket)
-            print(f'Accepted new connection from {client_address}...')
+            print('Accepted new connection from ', client_address, '...')
 
             msg_recv = recv_msg(client_socket)
             if msg_recv is False:
@@ -53,7 +53,7 @@ while True:
         else:
             msg_recv = recv_msg(notified_socket)
             if msg_recv is False:
-                print(f'Closed connection from: {notified_socket}...')
+                print('Closed connection from: ', notified_socket, '...')
                 sockets_list.remove(notified_socket)
                 clients.remove(notified_socket)
                 continue
@@ -71,7 +71,7 @@ while True:
                 com_time += 1
                 if com_time == PROPAGATION:
                     for user in clients:
-                        print(f'[COMMUNICATION COMPLETE] Close connection with {user.getpeername()}')
+                        print('[COMMUNICATION COMPLETE] Close connection with ', user.getpeername())
                         user.close()
                     print('[WAIT FOR NEW CONNECTION]')
 
