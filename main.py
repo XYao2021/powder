@@ -106,9 +106,9 @@ for prop in range(PROPAGATION):
         Test_Loss.append(test_loss.item())
         Test_Acc.append(test_acc)
 
-print(f'Train Loss: {Train_Loss}')
-print(f'Test Loss: {Test_Loss}')
-print(f'Test Acc: {Test_Acc}')
+print('Train Loss: ', Train_Loss)
+print('Test Loss: ', Test_Loss)
+print('Test Acc: ', Test_Acc)
 
 # figure, axis = plt.subplots(1, 3)
 # # For Sine Function
