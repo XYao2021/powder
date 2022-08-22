@@ -40,9 +40,9 @@ def accuracy_fn(y_true, y_pred):
     return acc
 
 class MNISTModel(nn.Module):  # Improve the model V0 with nonlinear activation function nn.Relu()
-    def __init__(self, input_shape: int,
-                 output_shape: int,
-                 hidden_units: int):
+    def __init__(self, input_shape,
+                 output_shape,
+                 hidden_units):
         super().__init__()
         self.layer_stack = nn.Sequential(nn.Flatten(),  # Equal to x.view(-1, 784)
                                          nn.Linear(in_features=input_shape, out_features=hidden_units),
@@ -53,9 +53,9 @@ class MNISTModel(nn.Module):  # Improve the model V0 with nonlinear activation f
     def forward(self, x: torch.Tensor):
         return self.layer_stack(x)
 
-def eval_model(model: torch.nn.Module,
-               data_loader: torch.utils.data.DataLoader,
-               loss_fn: torch.nn.Module,
+def eval_model(model,
+               data_loader,
+               loss_fn,
                accuracy_fn):
 
     loss, acc = 0, 0
@@ -73,13 +73,13 @@ def eval_model(model: torch.nn.Module,
             "model_loss": loss.item(),
             "model_acc": acc}
 
-def train_step(model: torch.nn.Module,
-               data_loader: torch.utils.data.DataLoader,
-               loss_fn: torch.nn.Module,
-               optimizer: torch.optim.Optimizer,
+def train_step(model,
+               data_loader,
+               loss_fn,
+               optimizer,
                accuracy_fn,
-               device: torch.device,
-               EPOCH: int):
+               device,
+               EPOCH):
 
     train_loss, train_acc = 0, 0
     model.train()
@@ -97,16 +97,16 @@ def train_step(model: torch.nn.Module,
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
     w = model.state_dict()
-    print(EPOCH, 'Train Loss: ', train_loss:.4f)
-    print(EPOCH, 'Train Acc: 'train_acc:.3f, '\n')
+    print(EPOCH, 'Train Loss: ', train_loss)
+    print(EPOCH, 'Train Acc: 'train_acc, '\n')
     return train_loss, train_acc, w
 
-def test_step(model: torch.nn.Module,
-              data_loader: torch.utils.data.DataLoader,
-              loss_fn: torch.nn.Module,
+def test_step(model,
+              data_loader,
+              loss_fn,
               accuracy_fn,
-              device: torch.device,
-              EPOCH: int):
+              device,
+              EPOCH):
     test_loss, test_acc = 0, 0
 
     model.eval()
@@ -120,8 +120,8 @@ def test_step(model: torch.nn.Module,
         # Adjust metrics and print out
         test_loss /= len(data_loader)
         test_acc /= len(data_loader)
-        print(EPOCH, 'Test Loss: ', test_loss:.4f)
-        print(EPOCH, 'Test Acc: ', test_acc:.3f, '\n')
+        print(EPOCH, 'Test Loss: ', test_loss)
+        print(EPOCH, 'Test Acc: ', test_acc, '\n')
     return test_loss, test_acc
 
 def FedAvg(w):
