@@ -97,7 +97,8 @@ def train_step(model: torch.nn.Module,
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
     w = model.state_dict()
-    print(f'Epoch: {EPOCH} | Train Loss: {train_loss:.4f} | Train Acc: {train_acc:.3f}%\n')
+    print(EPOCH, 'Train Loss: ', train_loss:.4f)
+    print(EPOCH, 'Train Acc: 'train_acc:.3f, '\n')
     return train_loss, train_acc, w
 
 def test_step(model: torch.nn.Module,
@@ -119,7 +120,8 @@ def test_step(model: torch.nn.Module,
         # Adjust metrics and print out
         test_loss /= len(data_loader)
         test_acc /= len(data_loader)
-        print(f'Epoch: {EPOCH} | Test Loss: {test_loss:.4f} | Test Acc: {test_acc:.3f}%\n')
+        print(EPOCH, 'Test Loss: ', test_loss:.4f)
+        print(EPOCH, 'Test Acc: ', test_acc:.3f, '\n')
     return test_loss, test_acc
 
 def FedAvg(w):
