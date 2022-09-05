@@ -138,9 +138,9 @@ txt_list = [['Train_Loss: ', Train_Loss],
             ['Test_Loss: ', Test_Loss],
             ['Test_Acc: ', Test_Acc]]
 
-# f = open('data_{}.txt'.format(args.name), 'w')
-# for item in txt_list:
-#     f.write("%s\n" % item)
+f = open('data_{}.txt'.format(args.ts), 'w')
+for item in txt_list:
+    f.write("%s\n" % item)
 
 figure, axis = plt.subplots(1, 3)
 # For Sine Function
