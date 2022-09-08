@@ -21,7 +21,7 @@ SIZE = 1024
 def args_parser():
     parse = argparse.ArgumentParser()
 
-    parse.add_argument('-agg', type=int, default=50, help='Global Aggregation times')
+    parse.add_argument('-agg', type=int, default=100, help='Global Aggregation times')
     parse.add_argument('-lr', type=float, default=0.1, help='Learning Rate of the Model')
     parse.add_argument('-bs', type=int, default=16, help='Batch Size for model')
     parse.add_argument('-ts', type=list, default=[0, 2, 4, 6, 8, 9], help='Target set for training and local testing')
@@ -30,7 +30,7 @@ def args_parser():
 
     parse.add_argument('-server', type=str, default='172.16.0.1', help='Server IP address')
     parse.add_argument('-port', type=int, default=5050, help='Socket port')
-    parse.add_argument('-bond', type=int, default=2, help='Threshold for FedAvg on Sever side')
+    parse.add_argument('-bond', type=int, default=4, help='Threshold for FedAvg on Sever side')
     parse.add_argument('-name', type=int, default=1, help='Client Name')
 
     args = parse.parse_args()
