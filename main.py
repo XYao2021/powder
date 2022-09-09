@@ -83,6 +83,7 @@ optimizer = torch.optim.SGD(params=model.parameters(),
 Train_Loss = []
 Test_Loss, Test_Acc = [], []
 Comp_time, Trans_time = [], []
+Trans_Acc = []
 
 for iter in range(1, ITERATION + 1):
     train_begin = timer()
@@ -104,8 +105,6 @@ for iter in range(1, ITERATION + 1):
     send_msg(CLIENT, ['MSG_CLIENT_TO_SERVER', w])
     new_weights = recv_msg(CLIENT, 'MSG_SERVER_TO_CLIENT')
     transfer_time = timer() - send_begin
-    Trans_time.append(round(transfer_time, 6))
-    print(iter, 'Communication Time', round(transfer_time, 6))
 
     model_test.load_state_dict(new_weights[1])
 
@@ -120,6 +119,9 @@ for iter in range(1, ITERATION + 1):
     Test_Acc.append(test_acc)
 
     if iter % args.iter == 0:
+        Trans_time.append(round(transfer_time, 6))
+        Trans_Acc.append(test_acc)
+        print(iter, 'Communication Time', round(transfer_time, 6))
         print('AGGREGATION ', int(iter / args.iter), 'FINISHED')
         print('[NEW WEIGHTS LOAD] on number ', iter, 'iteration', '\n')
         model.load_state_dict(new_weights[1])
@@ -136,9 +138,12 @@ print('Average Transfer Time: ', 100*(sum(Trans_time)/len(Trans_time)), 100*max(
 
 txt_list = [['Train_Loss: ', Train_Loss],
             ['Test_Loss: ', Test_Loss],
-            ['Test_Acc: ', Test_Acc]]
+            ['Test_Acc: ', Test_Acc],
+            ['Comp Time: ', Comp_time],
+            ['Trans Time: ', Trans_time],
+            ['Trans Acc: ', Trans_Acc]]
 
-f = open('data_{}.txt'.format(args.ts), 'w')
+f = open('data_{}.txt'.format(targets), 'w')
 for item in txt_list:
     f.write("%s\n" % item)
 
