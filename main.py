@@ -149,17 +149,17 @@ for item in txt_list:
 
 figure, axis = plt.subplots(1, 3)
 # For Sine Function
-axis[0].plot(range(len(Train_Loss)), Train_Loss, color='red', path_effects=[patheffects.SimpleLineShadow(shadow_color="blue", linewidth=5), patheffects.Normal()])
+axis[0].plot(range(len(Train_Loss)), Train_Loss, color='red')
 axis[0].set_xlabel("Aggregation")
 axis[0].set_ylabel("Train Loss")
 axis[0].set_title("Training Loss Function")
 
-axis[1].plot(range(len(Test_Acc)), Test_Acc, color='blue', path_effects=[patheffects.SimpleLineShadow(shadow_color="blue", linewidth=5), patheffects.Normal()])
+axis[1].plot(range(len(Test_Acc)), Test_Acc, color='blue')
 axis[1].set_xlabel("Aggregation")
 axis[1].set_ylabel("Test Accuracy")
 axis[1].set_title("Test Accuracy Function")
 
-axis[2].plot(range(len(Test_Loss)), Test_Loss, color='green', path_effects=[patheffects.SimpleLineShadow(shadow_color="blue", linewidth=5), patheffects.Normal()])
+axis[2].plot(range(len(Test_Loss)), Test_Loss, color='green')
 axis[2].set_xlabel("Aggregation")
 axis[2].set_ylabel("Test Loss")
 axis[2].set_title(args.ts)
