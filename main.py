@@ -136,11 +136,11 @@ print('Trans Time: ', Trans_time, '\n')
 print('Average Computation Time: ', 10*(sum(Comp_time)/len(Comp_time)), 10*max(Comp_time), 10*min(Comp_time), '\n')
 print('Average Transfer Time: ', 100*(sum(Trans_time)/len(Trans_time)), 100*max(Trans_time), 100*min(Trans_time), '\n')
 
-txt_list = [['Train_Loss: ', Train_Loss],
-            ['Test_Loss: ', Test_Loss],
-            ['Test_Acc: ', Test_Acc],
-            ['Comp Time: ', Comp_time],
-            ['Trans Time: ', Trans_time],
+txt_list = [['Train_Loss: ', Train_Loss], '\n',
+            ['Test_Loss: ', Test_Loss], '\n',
+            ['Test_Acc: ', Test_Acc], '\n',
+            ['Comp Time: ', Comp_time], '\n',
+            ['Trans Time: ', Trans_time], '\n',
             ['Trans Acc: ', Trans_Acc]]
 
 f = open('data_{}.txt'.format(targets), 'w')
