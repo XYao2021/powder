@@ -12,6 +12,7 @@ from functions import *
 import socket
 import copy
 from matplotlib import patheffects
+import time
 
 
 args = args_parser()
@@ -102,8 +103,11 @@ for iter in range(1, ITERATION + 1):
 
     send = timer()
     send_msg(CLIENT, ['MSG_CLIENT_TO_SERVER', w])
+    send_time = timer() - send
+    time.sleep(5)
+    recv = timer()
     new_weights = recv_msg(CLIENT, 'MSG_SERVER_TO_CLIENT')
-    trans = timer() - send
+    trans = (timer() - recv) + send_time
 
     model_test.load_state_dict(new_weights[1])
 
