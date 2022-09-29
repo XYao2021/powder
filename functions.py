@@ -23,7 +23,7 @@ SIZE = 1024
 def args_parser():
     parse = argparse.ArgumentParser()
 
-    parse.add_argument('-agg', type=int, default=100, help='Global Aggregation times')
+    parse.add_argument('-agg', type=int, default=50, help='Global Aggregation times')
     parse.add_argument('-lr', type=float, default=0.1, help='Learning Rate of the Model')
     parse.add_argument('-bs', type=int, default=16, help='Batch Size for model')
     parse.add_argument('-ts', type=list, default=[0, 2, 4, 6, 8, 9], help='Target set for training and local testing')
