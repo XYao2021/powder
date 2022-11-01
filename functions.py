@@ -31,7 +31,7 @@ def args_parser():
 
     parse.add_argument('-server', type=str, default='172.16.0.1', help='Server IP address')
     parse.add_argument('-port', type=int, default=5050, help='Socket port')
-    parse.add_argument('-bond', type=int, default=4, help='Threshold for FedAvg on Sever side')
+    parse.add_argument('-bond', type=int, default=2, help='Threshold for FedAvg on Sever side')
 
     args = parse.parse_args()
     return args
