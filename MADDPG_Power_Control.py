@@ -141,14 +141,14 @@ class MADDPG_Power_Control:
             print('SLOT: {} | REWARD: {} | TRAIL_AVG_RWD: {}'.format(index, self.score_history[index], np.mean(self.score_history[-50:])))
 
             if ACT_FUNCTION == 'tanh':
-                print(f">Acts(normed):{'%.2f|' * NUM_BS}" % tuple(np.abs(
-                    unit_map([actions[i].item() for i in range(NUM_BS)], factor=factor))))
+                print(">Acts(normed):{}".format(NUM_BS % tuple(np.abs(
+                    unit_map([actions[i].item() for i in range(NUM_BS)], factor=factor)))))
             else:
-                print(f">Acts (normed):{'%.2f|' * NUM_BS}" % tuple([actions[i].item() for i in range(n_BS)]))
+                print(">Acts (normed):{}".format(NUM_BS % tuple([actions[i].item() for i in range(n_BS)])))
             if NOISE_TYPE == "Gaussian":
-                print(f">Expl_noise_std:{MADDPG_agents.agents[0].noise.std:.4f}")
+                print(">Expl_noise_std: {}".format(MADDPG_agents.agents[0].noise.std))
             else:
-                print(f">Expl_noise_width:{MADDPG_agents.agents[0].noise.width:.4f}")
+                print(">Expl_noise_width: {}".format(MADDPG_agents.agents[0].noise.std))
 
             print('---------------------------------------------')
 
