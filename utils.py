@@ -93,22 +93,22 @@ def moving_average(in_vec, window_size):
             out_vec[i] = np.mean(in_vec[i - window_size + 1: i+1])
     return out_vec
 
-def plot_rwd_hist(Data):
-    r"""
-    :param: Data: input data, size(n_BS,n_slots)
-    :return: None
-    """
-    Data = np.array(Data)
-    n_BS = Data.shape[0]
-    fig, ax = plt.subplots(n_BS, sharex=True)
-    for i in range(n_BS):
-        ax[i].hist(Data[i], bins=50, edgecolor='black', label=f"User {i}")  # Adjust 'bins' as needed
-        ax[i].set_ylabel("Frequency")
-
-    ax[n_BS-1].set_xlabel("Reward (bits/Hz/sec)")
-    fig.suptitle("Reward distribution")
-    plt.savefig('reward_fig/fig_RwdHist_{}.pdf'.format(time.time()))
-    plt.show()
+# def plot_rwd_hist(Data):
+#     r"""
+#     :param: Data: input data, size(n_BS,n_slots)
+#     :return: None
+#     """
+#     Data = np.array(Data)
+#     n_BS = Data.shape[0]
+#     fig, ax = plt.subplots(n_BS, sharex=True)
+#     for i in range(n_BS):
+#         ax[i].hist(Data[i], bins=50, edgecolor='black', label=f"User {i}")  # Adjust 'bins' as needed
+#         ax[i].set_ylabel("Frequency")
+#
+#     ax[n_BS-1].set_xlabel("Reward (bits/Hz/sec)")
+#     fig.suptitle("Reward distribution")
+#     plt.savefig('reward_fig/fig_RwdHist_{}.pdf'.format(time.time()))
+#     plt.show()
 
 
 def noise_sigma(bandwidth=100 * 1e6):
