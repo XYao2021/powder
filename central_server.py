@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     PORT = args.port
     SERVER = socket.gethostbyname(socket.gethostname())
-    print(f'The server address is {SERVER}')
+    print('The server address is :', SERVER)
     ADDR = (SERVER, PORT)
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         for notified_socket in read_sockets:
             if notified_socket == server:
                 client_socket, client_address = server.accept()
-                print(f'Accepted new connection from {client_address}...')
+                print('Accepted new connection from ', client_address, '...')
 
                 recv_data = recv_msg(client_socket)
                 print(index, type(recv_data[1]), recv_data[1])
@@ -87,12 +87,12 @@ if __name__ == "__main__":
                 recv_data = recv_msg(notified_socket)
                 print(index, type(recv_data[1]), recv_data[1])
                 if msg_recv is False:
-                    print(f'Closed connection from: {notified_socket}...')
+                    print('Closed connection from:', notified_socket, '...')
                     socket_list.remove(notified_socket)
                     UEs.remove(notified_socket)
 
                 UE_channels[index].append(recv_data[1])
-                print(f'Message received from {notified_socket}...')
+                print('Message received from:', notified_socket, '...')
                 if len(UE_channels[index]) == threshold:
                     power_profile_slot, reward_profile_slot = POWER_CONTROL.take_action(index=index, channels=np.array(UE_channels[index]))
 
